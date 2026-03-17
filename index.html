@@ -16,20 +16,39 @@
 <body>
 
     <section class="hero">
-        <h1>Darija & Vladimir</h1>
-        <p class="subtitle">Pozivamo Vas na naše vjenčanje</p>
-        <p class="date">June 20, 2026</p>
+        <h1 class="fade-in">
+            <span class="imeDarija">Darija</span> &
+            <span class="imeVladimir">Vladimir</span>
+        </h1>
+
+        <p class="subtitle fade-in delay-1">
+            Pozivamo Vas na naše vjenčanje
+        </p>
     </section>
 
-    <section class="details">
+    <section class="envelope-section">
+        <div class="envelope">
+            <div class="back"></div>
+            <div class="letter-container">
+                <div class="letter">
+                    <p>21. Jun 2026</p>
+                </div>
+            </div>
+            <div class="flap"></div>
+        </div>
+    </section>
+
+    <section class="details reveal">
         <h2>Detalji</h2>
         <p>Lokacija: Restoran Adriatica, Kamenari, Crna Gora</p>
         <p>Vrijeme: 16:00</p>
     </section>
 
     <section class="map">
-        <iframe src="https://www.google.com/maps?q=Dubrovnik&output=embed">
-        </iframe>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2943.473980573349!2d18.67325907593649!3d42.46020697118369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x134c3124b8d52f31%3A0x3023c907c65ffa5e!2sAdriatica%20Restaurant!5e0!3m2!1sen!2s!4v1773755504300!5m2!1sen!2s"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
     </section>
 
     <script src="script.js"></script>
