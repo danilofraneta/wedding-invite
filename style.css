@@ -4,6 +4,23 @@
     box-sizing: border-box;
 }
 
+#flower-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200vw;
+    height: 200vh;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.7;
+
+    /* Add blur */
+    filter: blur(0.8px);
+    /* adjust px to make it stronger or softer */
+    transition: filter 0.5s ease;
+    /* optional: smooth blur changes on scroll */
+}
+
 body {
     font-family: 'Inter', sans-serif;
     text-align: center;
@@ -26,14 +43,19 @@ section {
 
 @font-face {
     font-family: 'catchy-mager';
-    src: url('assets/fonts/CatchyMager.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+    src: url('assets/fonts/catchy-mager.woff') format('woff');
+    font-display: swap;
 }
 
 .hero h1 {
-    font-family: 'catchy-mager', 'Playfair Display', serif;
+    font-family: 'catchy-mager', serif;
     font-size: 52px;
+}
+
+.date {
+    font-family: 'catchy-mager', serif;
+    color: white;
+    font-size: xx-large;
 }
 
 .subtitle {
@@ -178,7 +200,7 @@ section {
 /* OPEN STATE */
 .envelope.open .envelope-top {
     transform: translateY(-120px) rotateX(160deg) scale(2);
-    filter: blur(0.8px) brightness(0.93);
+    filter: blur(0.8px) brightness(0.92);
     ;
     /* Adjust the px value to change blur intensity */
 

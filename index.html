@@ -14,7 +14,7 @@
 </head>
 
 <body>
-
+    <canvas id="flower-canvas"></canvas>
     <div class="envelope-overlay" id="envelopeOverlay">
         <div class="envelope" id="envelope">
             <img src="assets/images/envelope-top.png" class="envelope-top" alt="Envelope flap">
@@ -28,14 +28,14 @@
             <span class="imeVladimir">Vladimir</span>
         </h1>
 
-        <p class="subtitle fade-in delay-1">
+        <p class="subtitle fade-in delay-1" style="font-family: 'catchy-mager', serif;">
             Pozivamo Vas na naše vjenčanje
         </p>
     </section>
 
     <section class="date-section">
         <div class="date">
-            <p>21. Jun 2026</p>
+            <p>21. jun 2026.</p>
         </div>
     </section>
 
@@ -52,7 +52,18 @@
             referrerpolicy="no-referrer-when-downgrade"></iframe>
     </section>
 
-    <script src="script.js"></script>
+
+
+    <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/"
+    }
+  }
+</script>
+
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
