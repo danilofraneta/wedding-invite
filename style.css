@@ -97,32 +97,117 @@ section {
     transform: translateY(0);
 }
 
-.envelope-section {
-    height: 100vh; /* full viewport height */
+/*KOVERTA SE OTVARA*/
+/* FULL-SCREEN ENVELOPE OVERLAY */
+.envelope-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #e0999d;
+    /* fallback */
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1200px; /* important for 3D flap rotation */
+    z-index: 1000;
+    overflow: hidden;
+    perspective: 1500px;
+    /* needed for 3D flap */
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+/* ENVELOPE CONTAINER */
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transform-style: preserve-3d;
+}
+
+/* BOTTOM PART OF ENVELOPE */
+.envelope-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* makes the image fill container */
+    z-index: 1;
+    transition: transform 3s ease, opacity 3s ease;
+}
+
+/* TOP FLAP */
+.envelope-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* fill container */
+    transform-origin: top center;
+    z-index: 2;
+    transition: transform 7s ease;
+    /* remove opacity fade */
+}
+
+/* BOTTOM PART */
+.envelope-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: transform 3s ease;
+    /* only zoom, no opacity */
+}
+
+/* OPEN STATE */
+.envelope.open .envelope-top {
+    transform: translateY(-120px) rotateX(160deg) scale(1.1);
+    /* flap flips and zooms slightly */
+}
+
+.envelope.open .envelope-bottom {
+    transform: translateY(220px) scale(1.1);
+}
+
+/* OVERLAY ZOOM */
+.envelope-overlay.open {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.05);
+    /* slight zoom-out of entire overlay */
+    transition: opacity 1.8s ease, transform 1.8s ease;
+}
+
+
+/* ostatak */
+
+.date-section {
+    height: 100vh;
+    /* full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px;
+    /* important for 3D flap rotation */
     background: url('assets/images/weddingAdriatica.jpg') center/cover no-repeat;
 }
 
-.envelope {
+
+.date {
     width: 350px;
     height: 220px;
     position: relative;
     transform-style: preserve-3d;
 }
 
-/* BACK OF ENVELOPE */
-.envelope .back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, #fdfaf5 0%, #f0eae1 100%);
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    z-index: 1;
-}
 
 .letter {
     position: absolute;
@@ -165,17 +250,7 @@ section {
     clip-path: polygon(0 0, 100% 0, 50% 55%);
     transform-origin: top center;
     transition: transform 2s ease-in-out;
-    z-index: 10; /* always above letter */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 10;
+    /* always above letter */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
-
-/* OPEN ANIMATION */
-.envelope.open .flap {
-    transform: rotateX(180deg);
-}
-
-.envelope.open .letter {
-    transform: translateY(0) rotateX(0deg);
-}
-
-

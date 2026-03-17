@@ -1,25 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const reveals = document.querySelectorAll(".reveal");
-    const envelope = document.querySelector(".envelope");
-    const trigger = document.querySelector(".envelope-section");
+const envelope = document.getElementById('envelope');
+const overlay = document.getElementById('envelopeOverlay');
 
-    window.addEventListener("scroll", () => {
-        // Reveal sections
-        reveals.forEach(el => {
-            const top = el.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
+envelope.addEventListener('click', () => {
+  // Add open class to animate flap & bottom
+  envelope.classList.add('open');
 
-            if (top < windowHeight - 100) {
-                el.classList.add("active");
-            }
-        });
-
-        // Envelope animation
-        const topTrigger = trigger.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        if (topTrigger < windowHeight - 80) {
-            envelope.classList.add("open");
-        }
-    });
+  // After flap animation, fade out overlay
+  setTimeout(() => {
+    overlay.classList.add('open');
+  }, 1200); // slightly after flap starts opening
 });
