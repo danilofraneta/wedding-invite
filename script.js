@@ -121,21 +121,7 @@ window.addEventListener('scroll', () => {
         flower.position.y = 1.5 - (scrollY * 0.002);
 
         // Subtle side-to-side sway
-        const baseX = -0.5;
-
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-
-            if (flower) {
-                flower.rotation.y = scrollY * 0.005;
-
-                // Y movement (OK)
-                flower.position.y = 1.5 - (scrollY * 0.002);
-
-                // ✅ Smooth X (less sensitive)
-                flower.position.x = baseX + Math.sin(scrollY * 0.0005) * 0.1;
-            }
-        });
+        flower.position.x = -0.5 + Math.sin(scrollY * 0.001) * 0.2;
     }
 });
 
@@ -150,6 +136,80 @@ window.addEventListener('resize', () => {
     }
 });
 
+
+
+// Tajmer
+const weddingDate = new Date(2026, 5, 21);
+
+const el = {
+    months: document.getElementById("months"),
+    days: document.getElementById("days"),
+    hours: document.getElementById("hours")
+};
+
+function animateChange(element, newValue) {
+    element.style.transform = "translateY(-10px)";
+    element.style.opacity = "0";
+
+    setTimeout(() => {
+        element.textContent = String(newValue).padStart(2, "0");
+        element.style.transform = "translateY(0)";
+        element.style.opacity = "1";
+    }, 150);
+}
+
+function updateCountdown() {
+    const now = new Date();
+    let diff = weddingDate - now;
+
+    if (diff <= 0) return;
+
+    let totalHours = Math.floor(diff / (1000 * 60 * 60));
+    let days = Math.floor(totalHours / 24);
+    let months = Math.floor(days / 30);
+
+    days = days % 30;
+    let hours = totalHours % 24;
+
+    animateChange(el.months, months);
+    animateChange(el.days, days);
+    animateChange(el.hours, hours);
+}
+
+// update every second
+// Pokreni odmah
+updateCountdown();
+
+// Izračunaj koliko je ostalo do sljedećeg sata
+function scheduleNextUpdate() {
+    const now = new Date();
+    const msToNextHour =
+        (60 - now.getMinutes()) * 60 * 1000 -
+        now.getSeconds() * 1000;
+
+    setTimeout(() => {
+        updateCountdown();
+        scheduleNextUpdate(); // ponovo zakazivanje
+    }, msToNextHour);
+}
+
+scheduleNextUpdate();
+updateCountdown();
+
+const countdown = document.getElementById("countdown");
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            countdown.classList.add("show");
+        }
+    });
+});
+
+observer.observe(countdown);
+
+
+
 // --- ANIMATION LOOP ---
 function animate() {
     requestAnimationFrame(animate);
@@ -160,23 +220,3 @@ function animate() {
 }
 
 animate();
-
-function setRendererSize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-}
-
-window.addEventListener('resize', setRendererSize);
-setRendererSize();
-
-function setVh() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-
-window.addEventListener('resize', setVh);
-setVh();
