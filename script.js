@@ -1,13 +1,22 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 // --- ENVELOPE LOGIC ---
 const envelope = document.getElementById('envelope');
 const overlay = document.getElementById('envelopeOverlay');
+const music = document.getElementById('bg-music');
 
 if (envelope) {
     envelope.addEventListener('click', () => {
         envelope.classList.add('open');
+
+        // ▶️ START MUSIC
+        if (music) {
+            music.volume = 0.5; // 0.0 - 1.0
+            music.play().catch(() => { });
+        }
+
         setTimeout(() => {
             overlay.classList.add('open');
         }, 1200);
@@ -27,20 +36,34 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-// --- MYSTIC LIGHTING ---
-const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 2.5);
+// --- SUNNY DAY LIGHTING ---
+
+// ☀️ Sun light (main light)
+const sunLight = new THREE.DirectionalLight(0xffffff, 2.5);
+sunLight.position.set(5, 10, 5);
+scene.add(sunLight);
+
+// 🌤️ Sky light (blue from above, warm from ground)
+const hemiLight = new THREE.HemisphereLight(
+    0xb1e1ff,  // sky color (light blue)
+    0xffe0b2,  // ground color (warm bounce)
+    1.2
+);
 scene.add(hemiLight);
 
-const mysticLight = new THREE.PointLight(0xffcc00, 15, 100);
-mysticLight.position.set(-5, 5, 5); // Moved light toward the top-left
-scene.add(mysticLight);
-
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+// 🌫️ Soft ambient fill
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
 // --- MODEL LOADING ---
 const loader = new GLTFLoader();
 let flower;
+
+new RGBELoader()
+    .load('https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/venice_sunset_1k.hdr', function (texture) {
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        scene.environment = texture;
+    });
 
 loader.load(
     'assets/models/flower.glb',
@@ -55,7 +78,31 @@ loader.load(
 
         flower.traverse((child) => {
             if (child.isMesh) {
-                child.material.envMapIntensity = 2;
+
+                // 🌈 COLOR (tint)
+                child.material.color.offsetHSL(0, 0, 0.05); // brighter colors
+
+                // 💡 BRIGHTNESS / REFLECTION
+                child.material.envMapIntensity = 3;
+
+                // 🌸 SOFT LOOK
+                child.material.roughness = 0.6;  // lower = shinier
+                child.material.metalness = 0.1;
+
+                // ✨ OPTIONAL: make colors pop more
+                child.material.emissive = new THREE.Color(0x220000);
+                child.material.emissiveIntensity = 0.2;
+
+                child.material.side = THREE.DoubleSide;
+
+                child.material.roughness = 0.5;
+
+                child.material.polygonOffset = true;
+                child.material.polygonOffsetFactor = 1;
+                child.material.polygonOffsetUnits = 1;
+
+                child.material.transparent = true;
+                child.material.depthWrite = false;
             }
         });
         console.log("Success: Large Corner Flower loaded!");
