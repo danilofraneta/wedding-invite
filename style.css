@@ -3,13 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+html{
+    overflow-x: hidden;
+}
 
 #flower-canvas {
     position: fixed;
     top: 0;
     left: 0;
-    width: 200vw;
-    height: 200vh;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
     pointer-events: none;
     opacity: 0.6;
@@ -26,6 +29,7 @@ body {
     text-align: center;
     color: #333;
     background: #e0999d;
+    overflow-x: hidden;
 }
 
 section {

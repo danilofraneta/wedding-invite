@@ -121,7 +121,21 @@ window.addEventListener('scroll', () => {
         flower.position.y = 1.5 - (scrollY * 0.002);
 
         // Subtle side-to-side sway
-        flower.position.x = -0.5 + Math.sin(scrollY * 0.001) * 0.2;
+        const baseX = -0.5;
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+
+            if (flower) {
+                flower.rotation.y = scrollY * 0.005;
+
+                // Y movement (OK)
+                flower.position.y = 1.5 - (scrollY * 0.002);
+
+                // ✅ Smooth X (less sensitive)
+                flower.position.x = baseX + Math.sin(scrollY * 0.0005) * 0.1;
+            }
+        });
     }
 });
 
@@ -146,3 +160,15 @@ function animate() {
 }
 
 animate();
+
+function setRendererSize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+}
+
+window.addEventListener('resize', setRendererSize);
+setRendererSize();
