@@ -79,6 +79,10 @@ section {
     font-size: xx-large;
 }
 
+.tekst {
+    font-size: 20px;
+}
+
 .datum {
     background-color: #a20e2b;
     border-radius: 8px;
@@ -96,9 +100,15 @@ section {
     margin: auto;
 }
 
-.details h2 {
+.details h1 {
     font-family: 'Playfair Display', serif;
     margin-bottom: 20px;
+    color: #33191e;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
 
 .map {
@@ -349,14 +359,14 @@ section {
 }
 
 .num {
-    font-size: 24px;
+    font-size: 34px;
     font-weight: bold;
     color: white;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .label {
-    font-size: 12px;
+    font-size: 18px;
     color: white;
     opacity: 0.8;
 }
@@ -379,4 +389,54 @@ section {
 .pozdrav h2 {
     font-family: 'Playfair Display', serif;
     margin-bottom: 20px;
+}
+
+.infoBox {
+    max-width: 520px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+
+    background: #61616100;
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* LABEL (Lokacija / Vrijeme) */
+.label2 {
+    display: block;
+    font-size: 14px;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    color: #a20e2b;
+    margin-bottom: 10px;
+}
+
+/* CONTENT */
+.infoBox p {
+    font-family: 'catchy-mager', serif;
+    font-size: 20px;
+    color: #33191e;
+    line-height: 1.4;
+}
+
+.linija {
+
+    padding-top: 10px;
+    max-width: 80px;
+    rotate: -30deg;
+}
+
+.linija2 {
+    padding-top: 10px;
+    max-width: 80px;
+    rotate: 30deg;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
