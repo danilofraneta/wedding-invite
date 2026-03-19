@@ -90,21 +90,20 @@ section {
 }
 
 .datum {
-    background: linear-gradient(
-        to right,
-        rgba(162, 14, 43, 0.8),
-        rgba(162, 14, 43, 0.6)
-    );
+    background: linear-gradient(to right,
+            rgba(162, 14, 43, 0.8),
+            rgba(162, 14, 43, 0.6));
 
     backdrop-filter: blur(10px);
-    
+
     padding: 10px 18px;
     border-radius: 10px;
 
     color: white;
     font-size: 32px;
 
-    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+
 }
 
 .subtitle {
@@ -173,11 +172,11 @@ section {
 }
 
 .fade-in.delay-1 {
-    animation-delay: 0.5s;
+    animation-delay: 0.3s;
 }
 
 .fade-in.delay-2 {
-    animation-delay: 1s;
+    animation-delay: 0.7s;
 }
 
 @keyframes fadeUp {
@@ -189,13 +188,13 @@ section {
 
 .reveal {
     opacity: 0;
-    transform: translateY(60px) scale(0.98);
-    filter: blur(6px);
+    transform: translateY(100px) scale(0.97);
+    filter: blur(8px);
 
-    transition: 
-        opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 1.2s ease;
+    transition:
+        opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1.5s ease;
 }
 
 .reveal.active {
@@ -204,9 +203,17 @@ section {
     filter: blur(0);
 }
 
-.reveal.delay-1 { transition-delay: 0.2s; }
-.reveal.delay-2 { transition-delay: 0.4s; }
-.reveal.delay-3 { transition-delay: 0.6s; }
+.reveal.delay-1 {
+    transition-delay: 0.2s;
+}
+
+.reveal.delay-2 {
+    transition-delay: 0.4s;
+}
+
+.reveal.delay-3 {
+    transition-delay: 0.6s;
+}
 
 /*KOVERTA SE OTVARA*/
 /* FULL-SCREEN ENVELOPE OVERLAY */
@@ -502,7 +509,6 @@ section {
 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 
 /* LABEL (Lokacija / Vrijeme) */
 .label2 {
