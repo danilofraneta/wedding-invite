@@ -19,8 +19,58 @@ if (envelope) {
 
         setTimeout(() => {
             overlay.classList.add('open');
+
+            // ⬇️ DODAJ OVO
+            setTimeout(() => {
+                hintScroll();
+            }, 5500); // čeka da korisnik vidi sadržaj
+
         }, 1200);
     });
+}
+
+let userScrolled = false;
+
+// prati da li je korisnik već skrolovao
+window.addEventListener('scroll', () => {
+    userScrolled = true;
+}, { once: true });
+
+
+function hintScroll() {
+    if (userScrolled) return;
+
+    const startY = window.scrollY;
+    const amplitude = 90;
+    const duration = 600;
+
+    let startTime = null;
+
+    document.documentElement.style.scrollBehavior = "auto";
+
+    function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+
+    function animate(timestamp) {
+        if (!startTime) startTime = timestamp;
+
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // prvo ide dolje pa se vrati (sinus)
+        const movement = Math.sin(progress * Math.PI) * amplitude * (1 - progress * 0.3);
+        window.scrollTo(0, startY + movement);
+
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        } else {
+            // vrati normalno ponašanje
+            document.documentElement.style.scrollBehavior = "smooth";
+        }
+    }
+
+    requestAnimationFrame(animate);
 }
 
 // --- THREE.JS SCENE SETUP ---

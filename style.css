@@ -10,6 +10,7 @@ html {
 }
 
 
+/* 🌸 POZADINA */
 #flower-canvas {
     position: fixed;
     top: 0;
@@ -19,12 +20,20 @@ html {
     z-index: -1;
     pointer-events: none;
     opacity: 0.6;
-
-    /* Add blur */
     filter: blur(0.8px);
-    /* adjust px to make it stronger or softer */
-    transition: filter 0.5s ease;
-    /* optional: smooth blur changes on scroll */
+}
+
+/* 🦋 IZNAD SVEGA */
+#butterfly-canvas {
+    position: absolute;
+    /* ❗ umjesto fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* ili bolje dolje */
+    z-index: 999;
+    pointer-events: none;
 }
 
 body {
@@ -77,6 +86,11 @@ section {
 .hero h1 {
     font-family: 'catchy-mager', serif;
     font-size: 62px;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.281),
+        0 0 20px rgba(255, 255, 255, 0.171),
+        0 0 40px rgba(255, 255, 255, 0.082);
+
 }
 
 .date {
@@ -188,8 +202,9 @@ section {
 
 .reveal {
     opacity: 0;
-    transform: translateY(40px); /* manji pomak */
-    
+    transform: translateY(40px);
+    /* manji pomak */
+
     transition:
         opacity 1.6s ease,
         transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -506,6 +521,7 @@ section {
 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .infoBox.reveal {
     transform: translateY(50px);
     opacity: 0;
@@ -515,6 +531,7 @@ section {
     transform: translateY(0);
     opacity: 1;
 }
+
 /* LABEL (Lokacija / Vrijeme) */
 .label2 {
     display: block;
