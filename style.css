@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+
+html {
+    scroll-behavior: smooth;
+}
+
+
 #flower-canvas {
     position: fixed;
     top: 0;
@@ -33,7 +39,7 @@ section {
 }
 
 .hero {
-    height: 90vh;
+    height: 85vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,7 +76,7 @@ section {
 
 .hero h1 {
     font-family: 'catchy-mager', serif;
-    font-size: 52px;
+    font-size: 62px;
 }
 
 .date {
@@ -84,8 +90,13 @@ section {
 }
 
 .datum {
-    background: rgba(162, 14, 43, 0.75); /* malo transparentno */
-    backdrop-filter: blur(8px); /* GLAVNA STVAR */
+    background: linear-gradient(
+        to right,
+        rgba(162, 14, 43, 0.8),
+        rgba(162, 14, 43, 0.6)
+    );
+
+    backdrop-filter: blur(10px);
     
     padding: 10px 18px;
     border-radius: 10px;
@@ -178,14 +189,24 @@ section {
 
 .reveal {
     opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s ease;
+    transform: translateY(60px) scale(0.98);
+    filter: blur(6px);
+
+    transition: 
+        opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 1.2s ease;
 }
 
 .reveal.active {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
 }
+
+.reveal.delay-1 { transition-delay: 0.2s; }
+.reveal.delay-2 { transition-delay: 0.4s; }
+.reveal.delay-3 { transition-delay: 0.6s; }
 
 /*KOVERTA SE OTVARA*/
 /* FULL-SCREEN ENVELOPE OVERLAY */

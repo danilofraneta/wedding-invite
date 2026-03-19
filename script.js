@@ -210,6 +210,21 @@ observer.observe(countdown);
 
 
 
+const reveals = document.querySelectorAll(".reveal");
+
+const observer2 = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+        }
+    });
+}, {
+    threshold: 0.15
+});
+
+reveals.forEach(el => observer2.observe(el));
+
+
 // --- ANIMATION LOOP ---
 function animate() {
     requestAnimationFrame(animate);
