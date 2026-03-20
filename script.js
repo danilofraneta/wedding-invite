@@ -20,6 +20,8 @@ if (envelope) {
         setTimeout(() => {
             overlay.classList.add('open');
 
+            showScrollIndicatorAfterEnvelope();
+
             // 🔥 pokreni animacije tek sad
             document.querySelectorAll('.fade-in').forEach(el => {
                 el.classList.add('show');
@@ -28,9 +30,10 @@ if (envelope) {
             // ⬇️ DODAJ OVO
             setTimeout(() => {
                 hintScroll();
+                showScrollIndicator(); // ⬅️ DODAJ OVO
             }, 5500); // čeka da korisnik vidi sadržaj
 
-        }, 1200);
+        }, 1200); 
     });
 }
 
@@ -302,3 +305,66 @@ document.addEventListener("visibilitychange", () => {
         music.play().catch(() => {});
     }
 });
+
+
+
+
+
+
+const indicator = document.getElementById("scrollIndicator");
+let scrollHintTimeout;
+
+// funkcija koja pokazuje strelicu samo ako korisnik još nije skrolovao
+function scheduleScrollHint(delay = 4000) {
+    clearTimeout(scrollHintTimeout);
+    scrollHintTimeout = setTimeout(() => {
+        if (!userScrolled && indicator) {
+            indicator.classList.add("show");
+        }
+    }, delay);
+}
+
+// sakrij strelicu čim korisnik scrolluje
+function hideScrollIndicator() {
+    if (!indicator) return;
+
+    indicator.classList.remove("show");
+    indicator.style.opacity = "0";
+    indicator.style.transition = "opacity 0.5s ease";
+}
+
+// prati scroll
+window.addEventListener("scroll", () => {
+    userScrolled = true;
+    hideScrollIndicator();
+    clearTimeout(scrollHintTimeout);
+}, { once: true });
+
+// pokreni hint nakon otvaranja koverti i animacija
+function showScrollIndicatorAfterEnvelope() {
+    // mala pauza da se overlay fade-out završi
+    setTimeout(() => {
+        scheduleScrollHint(4000); // strelica se pojavi 4s ako korisnik ne scrolluje
+    }, 500);
+}
+
+// sakrij čim user scrolluje
+window.addEventListener("scroll", () => {
+    userScrolled = true;
+
+    if (indicator) {
+        indicator.style.opacity = "0";
+        indicator.style.transition = "opacity 0.5s ease";
+    }
+
+    clearTimeout(scrollHintTimeout);
+});
+
+function showScrollIndicatorSafe() {
+    // čeka dok overlay potpuno nestane
+    setTimeout(() => {
+        if (!userScrolled) {
+            indicator.classList.add("show");
+        }
+    }, 500); // 0.5s nakon fade-out
+}

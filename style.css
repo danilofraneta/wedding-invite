@@ -25,14 +25,12 @@ html {
 
 /* 🦋 IZNAD SVEGA */
 #butterfly-canvas {
-    position: absolute;
     /* ❗ umjesto fixed */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     /* ili bolje dolje */
-    z-index: 999;
     pointer-events: none;
 }
 
@@ -40,7 +38,7 @@ body {
     font-family: 'Inter', sans-serif;
     text-align: center;
     color: #333;
-    background: #e0999d;
+    background: #e0999cb2;
 }
 
 section {
@@ -74,6 +72,7 @@ section {
             rgba(224, 153, 157, 1));
 
     pointer-events: none;
+    z-index: 1;
 }
 
 
@@ -567,4 +566,84 @@ section {
     rotate: 30deg;
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+}
+
+
+
+
+
+
+.scroll-indicator {
+
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 24px;
+    height: 40px;
+
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* linija */
+.scroll-indicator span {
+    display: block;
+    width: 2px;
+    height: 100%;
+    background: none;
+    margin: 0 auto;
+
+    position: relative;
+}
+
+/* strelica */
+.scroll-indicator span::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    border-right: 3px solid white;
+    border-bottom: 3px solid white;
+
+    transform: translateX(-50%) rotate(45deg);
+}
+
+/* animacija (lagano “padanje”) */
+.scroll-indicator.show {
+    animation: fadeInIndicator 1.5s ease forwards;
+}
+
+@keyframes fadeInIndicator {
+    to {
+        opacity: 0.7;
+    }
+}
+
+/* “disanje” */
+.scroll-indicator span {
+    animation: scrollMove 2s ease-in-out infinite;
+}
+
+@keyframes scrollMove {
+    0% {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateY(8px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
 }
