@@ -20,6 +20,11 @@ if (envelope) {
         setTimeout(() => {
             overlay.classList.add('open');
 
+            // 🔥 pokreni animacije tek sad
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.classList.add('show');
+            });
+
             // ⬇️ DODAJ OVO
             setTimeout(() => {
                 hintScroll();
@@ -41,7 +46,7 @@ function hintScroll() {
     if (userScrolled) return;
 
     const startY = window.scrollY;
-    const amplitude = 90;
+    const amplitude = 60;
     const duration = 600;
 
     let startTime = null;
