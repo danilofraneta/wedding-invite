@@ -291,3 +291,14 @@ function animate() {
 }
 
 animate();
+
+
+document.addEventListener("visibilitychange", () => {
+    if (!music) return;
+
+    if (document.hidden) {
+        music.pause();
+    } else {
+        music.play().catch(() => {});
+    }
+});
