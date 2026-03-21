@@ -6,6 +6,8 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 const envelope = document.getElementById('envelope');
 const overlay = document.getElementById('envelopeOverlay');
 const music = document.getElementById('bg-music');
+let isAutoScrolling = false;
+let ignoreScroll = false;
 
 if (envelope) {
     envelope.addEventListener('click', () => {
@@ -30,23 +32,21 @@ if (envelope) {
             // ⬇️ DODAJ OVO
             setTimeout(() => {
                 hintScroll();
-                showScrollIndicator(); // ⬅️ DODAJ OVO
+                scheduleScrollHint(3000);  // ⬅️ DODAJ OVO
             }, 5500); // čeka da korisnik vidi sadržaj
 
-        }, 1200); 
+        }, 1200);
     });
 }
 
 let userScrolled = false;
 
-// prati da li je korisnik već skrolovao
-window.addEventListener('scroll', () => {
-    userScrolled = true;
-}, { once: true });
-
 
 function hintScroll() {
     if (userScrolled) return;
+
+    isAutoScrolling = true;
+    ignoreScroll = true; // 👈 počni ignorisati
 
     const startY = window.scrollY;
     const amplitude = 60;
@@ -56,25 +56,25 @@ function hintScroll() {
 
     document.documentElement.style.scrollBehavior = "auto";
 
-    function easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3);
-    }
-
     function animate(timestamp) {
         if (!startTime) startTime = timestamp;
 
         const elapsed = timestamp - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        // prvo ide dolje pa se vrati (sinus)
-        const movement = Math.sin(progress * Math.PI) * amplitude * (1 - progress * 0.3);
+        const movement = Math.sin(progress * Math.PI) * amplitude;
         window.scrollTo(0, startY + movement);
 
         if (progress < 1) {
             requestAnimationFrame(animate);
         } else {
-            // vrati normalno ponašanje
             document.documentElement.style.scrollBehavior = "smooth";
+            isAutoScrolling = false;
+
+            // 👇 KLJUČNO – mali delay da se browser smiri
+            setTimeout(() => {
+                ignoreScroll = false;
+            }, 200); 
         }
     }
 
@@ -302,7 +302,7 @@ document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
         music.pause();
     } else {
-        music.play().catch(() => {});
+        music.play().catch(() => { });
     }
 });
 
@@ -335,10 +335,14 @@ function hideScrollIndicator() {
 
 // prati scroll
 window.addEventListener("scroll", () => {
+    if (isAutoScrolling || ignoreScroll) return;
+
+    if (userScrolled) return;
+
     userScrolled = true;
     hideScrollIndicator();
     clearTimeout(scrollHintTimeout);
-}, { once: true });
+});
 
 // pokreni hint nakon otvaranja koverti i animacija
 function showScrollIndicatorAfterEnvelope() {
@@ -348,17 +352,7 @@ function showScrollIndicatorAfterEnvelope() {
     }, 500);
 }
 
-// sakrij čim user scrolluje
-window.addEventListener("scroll", () => {
-    userScrolled = true;
 
-    if (indicator) {
-        indicator.style.opacity = "0";
-        indicator.style.transition = "opacity 0.5s ease";
-    }
-
-    clearTimeout(scrollHintTimeout);
-});
 
 function showScrollIndicatorSafe() {
     // čeka dok overlay potpuno nestane
