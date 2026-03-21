@@ -8,6 +8,8 @@ const overlay = document.getElementById('envelopeOverlay');
 const music = document.getElementById('bg-music');
 let isAutoScrolling = false;
 let ignoreScroll = false;
+let flowerMixer;
+const clock = new THREE.Clock();
 
 if (envelope) {
     envelope.addEventListener('click', () => {
@@ -128,6 +130,15 @@ loader.load(
     (gltf) => {
         flower = gltf.scene;
         scene.add(flower);
+
+        // ✅ POKRENI ANIMACIJU IZ GLB
+        if (gltf.animations && gltf.animations.length > 0) {
+            flowerMixer = new THREE.AnimationMixer(flower);
+
+            gltf.animations.forEach((clip) => {
+                flowerMixer.clipAction(clip).play();
+            });
+        }
 
         // --- POSITION & SIZE ---
         flower.scale.set(2.2, 2.2, 2.2); // Doubled the size
@@ -287,9 +298,17 @@ reveals.forEach(el => observer2.observe(el));
 // --- ANIMATION LOOP ---
 function animate() {
     requestAnimationFrame(animate);
+
+    const delta = clock.getDelta();
+
+    if (flowerMixer) {
+        flowerMixer.update(delta);
+    }
+
     if (flower) {
         flower.rotation.x += 0.003;
     }
+
     renderer.render(scene, camera);
 }
 

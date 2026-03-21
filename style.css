@@ -97,9 +97,27 @@ section {
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'edwardianscriptitc';
+    src: url('assets/fonts/edwardianscriptitc.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AnastasiaScriptRegular';
+    src: url('assets/fonts/AnastasiaScriptRegular.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Dh';
+    src: url('assets/fonts/UT\ Nikahan\ Script\ Trial.otf') format('truetype');
+    font-display: swap;
+}
+
 .hero h1 {
-    font-family: 'catchy-mager', serif;
-    font-size: 62px;
+    font-family: 'Dh', serif;
+    font-size: 82px;
     text-shadow:
         0 0 10px rgba(255, 255, 255, 0.281),
         0 0 20px rgba(255, 255, 255, 0.171),
@@ -520,7 +538,7 @@ section {
 
 
 .pozdrav h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Dh', serif;
     margin-bottom: 20px;
 }
 
