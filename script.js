@@ -396,7 +396,7 @@ function showScrollIndicatorSafe() {
 
 const langBtn = document.getElementById("langToggle");
 
-let currentLang = "sr"; // default je naš
+let currentLang = "me"; // default je naš
 
 const translations = {
     me: {
@@ -419,7 +419,7 @@ const translations = {
         detailsTitle: "Details",
         timeLabel: "Time",
         locationLabel: "Location",
-        locationValue: "<b>Restaurant Adriatica<br>Kamenari, Montenegro</b>",
+        locationValue: "Restaurant Adriatica<br>Kamenari, Montenegro",
         dressLabel: "Dress Code",
         dressValue: "Formal",
         greeting: "We look forward to your arrival!",
@@ -448,8 +448,7 @@ langBtn.addEventListener("click", () => {
 
     // dress code value
     document.querySelector(".details-title").childNodes[1].nodeValue = " " + t.detailsTitle + " ";
-    document.querySelectorAll(".infoBox p b")[2].textContent = t.dressValue;
-
+    document.querySelector(".dress-code-text").textContent = t.dressValue;
     // greeting
     document.querySelector(".pozdrav p").textContent = t.greeting;
 
