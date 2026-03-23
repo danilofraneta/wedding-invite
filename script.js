@@ -405,6 +405,7 @@ const translations = {
         detailsTitle: "Detalji",
         timeLabel: "Vrijeme",
         locationLabel: "Lokacija",
+        locationValue: "Restoran Adriatica<br>Kamenari, Crna Gora",
         dressLabel: "Dres kod",
         dressValue: "Formalno",
         greeting: "Radujemo se Vašem dolasku!",
@@ -418,6 +419,7 @@ const translations = {
         detailsTitle: "Details",
         timeLabel: "Time",
         locationLabel: "Location",
+        locationValue: "<b>Restaurant Adriatica<br>Kamenari, Montenegro</b>",
         dressLabel: "Dress Code",
         dressValue: "Formal",
         greeting: "We look forward to your arrival!",
@@ -441,6 +443,7 @@ langBtn.addEventListener("click", () => {
     // labels
     document.querySelectorAll(".label2")[0].textContent = t.timeLabel;
     document.querySelectorAll(".label2")[1].textContent = t.locationLabel;
+    document.querySelector(".location-text").innerHTML = t.locationValue;
     document.querySelectorAll(".label2")[2].textContent = t.dressLabel;
 
     // dress code value
