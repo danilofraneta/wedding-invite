@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-import { Analytics } from "@vercel/analytics/next"
 
 // --- ENVELOPE LOGIC ---
 const envelope = document.getElementById('envelope');
@@ -77,7 +76,7 @@ function hintScroll() {
             // 👇 KLJUČNO – mali delay da se browser smiri
             setTimeout(() => {
                 ignoreScroll = false;
-            }, 200); 
+            }, 200);
         }
     }
 
@@ -382,3 +381,81 @@ function showScrollIndicatorSafe() {
         }
     }, 500); // 0.5s nakon fade-out
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+const langBtn = document.getElementById("langToggle");
+
+let currentLang = "sr"; // default je naš
+
+const translations = {
+    me: {
+        subtitle: "Pozivamo Vas na naše vjenčanje",
+        date: "20. jun 2026.",
+        detailsTitle: "Detalji",
+        timeLabel: "Vrijeme",
+        locationLabel: "Lokacija",
+        dressLabel: "Dres kod",
+        dressValue: "Formalno",
+        greeting: "Radujemo se Vašem dolasku!",
+        months: "mjeseca",
+        days: "dana",
+        hours: "sati"
+    },
+    en: {
+        subtitle: "We invite you to our wedding",
+        date: "June 20, 2026",
+        detailsTitle: "Details",
+        timeLabel: "Time",
+        locationLabel: "Location",
+        dressLabel: "Dress Code",
+        dressValue: "Formal",
+        greeting: "We look forward to your arrival!",
+        months: "months",
+        days: "days",
+        hours: "hours"
+    }
+};
+
+langBtn.addEventListener("click", () => {
+    currentLang = currentLang === "me" ? "en" : "me";
+
+    const t = translations[currentLang];
+
+    // HERO subtitle
+    document.querySelector(".subtitle").textContent = t.subtitle;
+
+    // datum
+    document.querySelector(".datum").textContent = t.date;
+
+    // labels
+    document.querySelectorAll(".label2")[0].textContent = t.timeLabel;
+    document.querySelectorAll(".label2")[1].textContent = t.locationLabel;
+    document.querySelectorAll(".label2")[2].textContent = t.dressLabel;
+
+    // dress code value
+    document.querySelector(".details-title").childNodes[1].nodeValue = " " + t.detailsTitle + " ";
+    document.querySelectorAll(".infoBox p b")[2].textContent = t.dressValue;
+
+    // greeting
+    document.querySelector(".pozdrav p").textContent = t.greeting;
+
+    // countdown labels
+    const labels = document.querySelectorAll(".countdown .label");
+    labels[0].textContent = t.months;
+    labels[1].textContent = t.days;
+    labels[2].textContent = t.hours;
+
+    // promijeni dugme tekst
+    langBtn.textContent = currentLang === "me" ? "EN" : "SR";
+});

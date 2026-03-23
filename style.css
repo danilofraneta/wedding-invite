@@ -689,5 +689,32 @@ section {
     height: 100%;
 
     pointer-events: none;
-    z-index: 0; /* iza teksta, iznad backgrounda */
+    z-index: 0;
+    /* iza teksta, iznad backgrounda */
+}
+
+.lang-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: none;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+
+    color: white;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+    z-index: 20;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
 }
