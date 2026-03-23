@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { Analytics } from "@vercel/analytics/next"
 
 // --- ENVELOPE LOGIC ---
 const envelope = document.getElementById('envelope');
