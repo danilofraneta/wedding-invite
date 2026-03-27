@@ -208,7 +208,7 @@ window.addEventListener('resize', () => {
 
 
 // Tajmer
-const weddingDate = new Date(2026, 5, 21);
+const weddingDate = new Date(2026, 5, 20);
 
 const el = {
     months: document.getElementById("months"),
